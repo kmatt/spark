@@ -1,0 +1,27 @@
+From fb6419d9c23c4b2db7efe884128421e1956aebe2 Mon Sep 17 00:00:00 2001
+From: Matt Keranen <mkeranen@shccares.com>
+Date: Mon, 15 Jan 2024 21:44:55 +0000
+Subject: [PATCH] DATETIME2 default for MSSQL
+
+---
+ .../scala/org/apache/spark/sql/jdbc/MsSqlServerDialect.scala  | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/sql/core/src/main/scala/org/apache/spark/sql/jdbc/MsSqlServerDialect.scala b/sql/core/src/main/scala/org/apache/spark/sql/jdbc/MsSqlServerDialect.scala
+index 9776cff3f7c..52075f0dcbd 100644
+--- a/sql/core/src/main/scala/org/apache/spark/sql/jdbc/MsSqlServerDialect.scala
++++ b/sql/core/src/main/scala/org/apache/spark/sql/jdbc/MsSqlServerDialect.scala
+@@ -121,8 +121,8 @@ private object MsSqlServerDialect extends JdbcDialect {
+   }
+ 
+   override def getJDBCType(dt: DataType): Option[JdbcType] = dt match {
+-    case TimestampType => Some(JdbcType("DATETIME", java.sql.Types.TIMESTAMP))
+-    case TimestampNTZType => Some(JdbcType("DATETIME", java.sql.Types.TIMESTAMP))
++    case TimestampType => Some(JdbcType("DATETIME2", java.sql.Types.TIMESTAMP))
++    case TimestampNTZType => Some(JdbcType("DATETIME2", java.sql.Types.TIMESTAMP))
+     case StringType => Some(JdbcType("NVARCHAR(MAX)", java.sql.Types.NVARCHAR))
+     case BooleanType => Some(JdbcType("BIT", java.sql.Types.BIT))
+     case BinaryType => Some(JdbcType("VARBINARY(MAX)", java.sql.Types.VARBINARY))
+-- 
+2.34.1
+
